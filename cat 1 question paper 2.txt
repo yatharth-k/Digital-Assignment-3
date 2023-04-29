@@ -1,0 +1,207 @@
+Q.1.
+
+
+#include <stdio.h>
+
+void divide(int arr[], int start, int end, int* count) {
+    if (start >= end) {
+        return;
+    }
+    int mid = (start + end) / 2;
+    divide(arr, start, mid, count);
+    divide(arr, mid + 1, end, count);
+    (*count)++;
+    printf("Iteration %d:\n", *count);
+    printf("Left Half: ");
+    for (int i = start; i <= mid; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\nRight Half: ");
+    for (int i = mid + 1; i <= end; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n\n");
+}
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    int n = sizeof(arr) / sizeof(int);
+    int count = 0;
+    divide(arr, 0, n - 1, &count);
+    printf("Total iterations: %d", count);
+    return 0;
+}
+
+
+
+Q.2.
+
+
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char str[100];
+    int upperCount = 0, lowerCount = 0, digitCount = 0, spaceCount = 0, specialCount = 0;
+    
+    printf("Enter a string: ");
+    fgets(str, 100, stdin);
+    
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (isupper(str[i])) {
+            upperCount++;
+        } else if (islower(str[i])) {
+            lowerCount++;
+        } else if (isdigit(str[i])) {
+            digitCount++;
+        } else if (isspace(str[i])) {
+            spaceCount++;
+        } else {
+            specialCount++;
+        }
+    }
+    
+    printf("Uppercase characters: %d\n", upperCount);
+    printf("Lowercase characters: %d\n", lowerCount);
+    printf("Digit characters: %d\n", digitCount);
+    printf("Whitespace characters: %d\n", spaceCount);
+    printf("Special characters: %d\n", specialCount);
+    
+    return 0;
+}
+
+
+
+Q.3.
+
+
+#include <stdio.h>
+
+void sum_of_series(int n, float *sum) {
+    static int fact = 1;
+    if (n == 1) {
+        *sum += fact;
+        return;
+    }
+    fact *= n;
+    *sum += (float)fact / n;
+    sum_of_series(n - 1, sum);
+}
+
+int main() {
+    int n;
+    float sum = 0;
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
+    sum_of_series(n, &sum);
+    printf("Sum of the series is: %.2f\n", sum);
+    return 0;
+}
+
+
+
+Q.4.
+
+
+#include <stdio.h>
+
+int main() {
+    char type_of_the_car[10];
+    float price_of_the_car, extra_fitting_price_of_the_car, discount, net_amount;
+
+    printf("Enter the type of the car (Hatchback/Sedan/SUV/MUV): ");
+    scanf("%s", type_of_the_car);
+
+    printf("Enter the price of the car: ");
+    scanf("%f", &price_of_the_car);
+
+    printf("Enter the extra-fitting price of the car: ");
+    scanf("%f", &extra_fitting_price_of_the_car);
+
+    if (strcmp(type_of_the_car, "Hatchback") == 0) {
+        discount = 0.03;
+    } else if (strcmp(type_of_the_car, "Sedan") == 0) {
+        discount = 0.05;
+    } else if (strcmp(type_of_the_car, "SUV") == 0) {
+        discount = 0.10;
+    } else if (strcmp(type_of_the_car, "MUV") == 0) {
+        discount = 0.15;
+    } else {
+        printf("Invalid Type\n");
+        return 0;
+    }
+
+    net_amount = (price_of_the_car + extra_fitting_price_of_the_car) * (1 - discount) * 1.12;
+    printf("Net amount to be paid: %.2f\n", net_amount);
+
+    return 0;
+}
+
+
+
+Q.5.
+
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int modifyString(char *str) {
+    int len = strlen(str);
+
+   
+    str[0] = toupper(str[0]);
+    for (int i = 1; i < len; i++) {
+        if (str[i] == ' ') {
+            str[i+1] = toupper(str[i+1]);
+            break;
+        }
+        else {
+            str[i] = tolower(str[i]);
+        }
+    }
+
+   
+    char *ptr = strstr(str, " ") + 1;
+    while (*ptr != '\0') {
+        *ptr = toupper(*ptr);
+        ptr++;
+    }
+
+   
+    printf("Revised string: %s\n", str);
+    printf("Length of string: %lu\n", strlen(str));
+
+    
+    if (len < 20) {
+        return len;
+    }
+    else {
+        return sizeof(str);
+    }
+}
+
+int main() {
+    char str[100];
+    printf("Enter a string with two words: ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = '\0';
+
+    char *token = strtok(str, " ");
+    if (token == NULL) {
+        printf("Invalid input\n");
+        return 0;
+    }
+    token = strtok(NULL, " ");
+    if (token == NULL) {
+        printf("Invalid input\n");
+        return 0;
+    }
+
+    int result = modifyString(str);
+    printf("Result: %d\n", result);
+    return 0;
+}
+
+
+

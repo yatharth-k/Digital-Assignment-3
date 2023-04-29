@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX_EMPLOYEES 100
+
+struct employee {
+    char name[50];
+    int age;
+    char position[50];
+    char join_date[11];
+};
+
+int main() {
+    int i, j, num_employees;
+    struct employee employees[MAX_EMPLOYEES], temp;
+
+    printf("Enter the number of employees: ");
+    scanf("%d", &num_employees);
+
+   
+    for (i = 0; i < num_employees; i++) {
+        printf("\nEnter information for employee %d:\n", i + 1);
+        printf("Name: ");
+        scanf("%s", employees[i].name);
+        printf("Age: ");
+        scanf("%d", &employees[i].age);
+        printf("Position: ");
+        scanf("%s", employees[i].position);
+        printf("Join date (dd/mm/yyyy): ");
+        scanf("%s", employees[i].join_date);
+    }
+
+    
+    for (i = 0; i < num_employees - 1; i++) {
+        for (j = i + 1; j < num_employees; j++) {
+            if (strcmp(employees[i].name, employees[j].name) > 0) {
+                temp = employees[i];
+                employees[i] = employees[j];
+                employees[j] = temp;
+            }
+        }
+    }
+
+  
+    printf("\nEmployee list (in alphabetical order):\n");
+    for (i = 0; i < num_employees; i++) {
+        printf("%s, %d, %s, %s\n", employees[i].name, employees[i].age, employees[i].position, employees[i].join_date);
+    }
+
+   
+    printf("\nOrder of employees based on date of joining:\n");
+    for (i = 1; i <= 31; i++) { 
+        for (j = 1; j <= 12; j++) { 
+            for (int k = 0; k < num_employees; k++) { 
+                if (atoi(strtok(employees[k].join_date, "/")) == i && atoi(strtok(NULL, "/")) == j) {
+                    printf("%s\n", employees[k].name);
+                }
+            }
+        }
+    }
+
+    return 0;
+}

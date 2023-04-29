@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+int main() {
+    int i, j, angle1, angle2, angle3, count_acute = 0, count_right = 0, count_obtuse = 0, count_wrong = 0;
+
+    for (i = 1; i <= 5; i++) {
+        printf("Enter the three angles of triangle %d: ", i);
+        scanf("%d %d %d", &angle1, &angle2, &angle3);
+
+        if (angle1 + angle2 + angle3 > 180) {
+            printf("Sum of angles is greater than 180. Please enter correct values.\n");
+            count_wrong++;
+            i--;
+            continue;
+        }
+
+        if (angle1 < 0 || angle2 < 0 || angle3 < 0) {
+            printf("Angles cannot be negative. Please enter correct values.\n");
+            count_wrong++;
+            i--;
+            continue;
+        }
+
+        if (angle1 == 0 || angle2 == 0 || angle3 == 0) {
+            printf("One of the angles is zero. Please enter correct values.\n");
+            count_wrong++;
+            i--;
+            continue;
+        }
+
+        if (angle1 + angle2 + angle3 == 180) {
+            if (angle1 < 90 && angle2 < 90 && angle3 < 90) {
+                printf("Triangle %d is an acute-angled triangle.\n", i);
+                count_acute++;
+            } else if (angle1 == 90 || angle2 == 90 || angle3 == 90) {
+                printf("Triangle %d is a right-angled triangle.\n", i);
+                count_right++;
+            } else {
+                printf("Triangle %d is an obtuse-angled triangle.\n", i);
+                count_obtuse++;
+            }
+        } else {
+            printf("Sum of angles is not equal to 180. Please enter correct values.\n");
+            count_wrong++;
+            i--;
+            continue;
+        }
+    }
+
+    printf("Number of acute-angled triangles: %d\n", count_acute);
+    printf("Number of right-angled triangles: %d\n", count_right);
+    printf("Number of obtuse-angled triangles: %d\n", count_obtuse);
+    printf("Number of wrong entries: %d\n", count_wrong);
+
+    return 0;
+}

@@ -1,0 +1,200 @@
+Q.1.
+
+#include <stdio.h>
+
+int main() {
+    int i, chennai[7], delhi[7], haveri[7], gangtok[7];
+
+    printf("Enter the temperature in Chennai for the week of 7 days:\n");
+    for (i = 0; i < 7; i++) {
+        scanf("%d", &chennai[i]);
+
+      
+        if (chennai[i] < 28 || chennai[i] > 33) {
+            printf("Chennai temperature must be between 28C and 33C. Please enter correct values.\n");
+            i--;
+        }
+    }
+
+  
+    for (i = 0; i < 7; i++) {
+        delhi[i] = chennai[i] - 8;
+        haveri[i] = chennai[i] + 5;
+    }
+
+    
+    for (i = 0; i < 7; i++) {
+        gangtok[i] = haveri[i] - delhi[i];
+    }
+
+   
+    printf("\nChennai\tDelhi\tHaveri\tGangtok\n");
+    for (i = 0; i < 7; i++) {
+        printf("%dC\t%dC\t%dC\t%dC\n", chennai[i], delhi[i], haveri[i], gangtok[i]);
+    }
+
+    return 0;
+}
+
+
+
+
+Q.2.
+
+#include <stdio.h>
+
+int main() {
+    int i, j, k, l, sum, temp, digit_sum, mystery_num;
+
+   
+    for (i = 2; i <= 8; i += 2) {
+        for (j = 0; j <= 9; j++) {
+            for (k = 0; k <= 9; k++) {
+                for (l = 0; l <= 9; l++) {
+                    if ((i * 1000) + (j * 100) + (k * 10) + l % 2 == 0) {
+                       
+                        sum = i + j + k + l;
+                        temp = sum;
+
+                        
+                        while (temp > 9) {
+                            digit_sum = 0;
+                            while (temp > 0) {
+                                digit_sum += temp % 10;
+                                temp /= 10;
+                            }
+                            temp = digit_sum;
+                        }
+
+                        
+                        if (temp % 2 == 1) {
+                            printf("Odd Found: %d\n", (i * 1000) + (j * 100) + (k * 10) + l);
+                        } else {
+                            printf("Even Found: %d\n", (i * 1000) + (j * 100) + (k * 10) + l);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+
+
+Q.3.
+
+#include <stdio.h>
+#include <string.h>
+
+#define PASSWORD "password" 
+int main() {
+    char matrix[3][3]; 
+    char password_chars[10]; 
+    int i, j;
+
+  
+    printf("Enter the 3x3 matrix:\n");
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            scanf(" %c", &matrix[i][j]); 
+        }
+    }
+
+   
+    password_chars[0] = matrix[0][0];
+    password_chars[1] = matrix[1][1];
+    password_chars[2] = matrix[2][2];
+    password_chars[3] = matrix[0][2];
+    password_chars[4] = matrix[1][1];
+    password_chars[5] = matrix[2][0];
+    password_chars[6] = '\0'; 
+    if (strcmp(password_chars, PASSWORD) == 0) {
+        printf("Access granted!\n");
+    } else {
+        printf("Access denied!\n");
+    }
+
+    return 0;
+}
+
+
+Q.4.
+
+
+#include <stdio.h>
+
+int main() {
+    int original_marks[25], revised_marks[25];
+    int i, month, booster_marks, total_original_marks = 0, total_revised_marks = 0;
+    float original_avg, revised_avg;
+
+ 
+    for (i = 0; i < 25; i++) {
+        printf("Enter the original marks for student %d: ", i + 1);
+        scanf("%d", &original_marks[i]);
+
+        printf("Enter the month of birth (1-12) for student %d: ", i + 1);
+        scanf("%d", &month);
+
+        booster_marks = month; 
+        revised_marks[i] = original_marks[i] + booster_marks; 
+    }
+
+    
+    for (i = 0; i < 25; i++) {
+        total_original_marks += original_marks[i];
+    }
+    original_avg = (float) total_original_marks / 25;
+    for (i = 0; i < 25; i++) {
+        total_revised_marks += revised_marks[i];
+    }
+    revised_avg = (float) total_revised_marks / 25;
+
+    printf("Class average for original marks: %.2f\n", original_avg);
+    printf("Class average for revised marks: %.2f\n", revised_avg);
+    if (revised_avg - original_avg >= 5) {
+        printf("Can implement - Significant increase in class average\n");
+    } else {
+        printf("Need not implement - No significant increase in class average\n");
+    }
+
+    return 0;
+}
+
+
+
+
+Q.5.
+
+
+#include <stdio.h>
+
+int power(int x, int n);
+
+int main() {
+    int x, n, result;
+
+    printf("Enter a number: ");
+    scanf("%d", &x);
+
+    printf("Enter the power (less than or equal to 5): ");
+    scanf("%d", &n);
+
+    result = power(x, n);
+
+    printf("%d raised to the power of %d is: %d", x, n, result);
+
+    return 0;
+}
+
+int power(int x, int n) {
+    if (n == 0) {
+        return 1;
+    } else {
+        return x * power(x, n - 1);
+    }
+}
+
+
